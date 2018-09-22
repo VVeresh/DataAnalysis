@@ -31,3 +31,10 @@ def variable_correlation(variable1, variable2):
     
     return (num_same_direction, num_different_direction)
 print variable_correlation(pd.Series([1, 2, 3, 4]), pd.Series([7, 6, 5, 4]))
+
+'''
+It tell us is values:
+    - Positivly corelated (17,3)
+    - Negativly corelated (4,16)
+    - No corelation (9,11)
+'''
