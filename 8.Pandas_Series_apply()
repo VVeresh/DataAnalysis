@@ -1,0 +1,45 @@
+import pandas as pd
+
+names = pd.Series([
+    'Andre Agassi',
+    'Barry Bonds',
+    'Christopher Columbus',
+    'Daniel Defoe',
+    'Emilio Estevez',
+    'Fred Flintstone',
+    'Greta Garbo',
+    'Humbert Humbert',
+    'Ivan Ilych',
+    'James Joyce',
+    'Keira Knightley',
+    'Lois Lane',
+    'Mike Myers',
+    'Nick Nolte',
+    'Ozzy Osbourne',
+    'Pablo Picasso',
+    'Quirinus Quirrell',
+    'Rachael Ray',
+    'Susan Sarandon',
+    'Tina Turner',
+    'Ugueth Urbina',
+    'Vince Vaughn',
+    'Woodrow Wilson',
+    'Yoji Yamada',
+    'Zinedine Zidane'
+])
+
+def reverse_names(names):
+    '''
+    Fill in this function to return a new series where each name
+    in the input series has been transformed from the format
+    "Firstname Lastname" to "Lastname, FirstName".
+    
+    Try to use the Pandas apply() function rather than a loop.
+    '''
+    return names.apply(transform_names)
+
+def transform_names(name):
+    data = name.split()
+    return data[1] + ', ' + data[0]
+
+print reverse_names(names)
