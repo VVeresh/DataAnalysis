@@ -1,0 +1,92 @@
+import pandas as pd
+
+# Adding using +
+if 0:
+    s = pd.Series([1, 2, 3, 4])
+    df = pd.DataFrame({
+        0: [10, 20, 30, 40],
+        1: [50, 60, 70, 80],
+        2: [90, 100, 110, 120],
+        3: [130, 140, 150, 160]
+    })
+    
+    print df
+    print '' # Create a blank line between outputs
+    print df + s
+    
+# Adding with axis='index'
+if 0:
+    s = pd.Series([1, 2, 3, 4])
+    df = pd.DataFrame({
+        0: [10, 20, 30, 40],
+        1: [50, 60, 70, 80],
+        2: [90, 100, 110, 120],
+        3: [130, 140, 150, 160]
+    })
+    
+    print df
+    print '' # Create a blank line between outputs
+    print df.add(s, axis='index')
+    # The functions sub(), mul(), and div() work similarly to add()
+    
+# Adding with axis='columns'
+if 0:
+    s = pd.Series([1, 2, 3, 4])
+    df = pd.DataFrame({
+        0: [10, 20, 30, 40],
+        1: [50, 60, 70, 80],
+        2: [90, 100, 110, 120],
+        3: [130, 140, 150, 160]
+    })
+    
+    print df
+    print '' # Create a blank line between outputs
+    print df.add(s, axis='columns')
+    # The functions sub(), mul(), and div() work similarly to add()
+    
+grades_df = pd.DataFrame(
+    data={'exam1': [43, 81, 78, 75, 89, 70, 91, 65, 98, 87],
+          'exam2': [24, 63, 56, 56, 67, 51, 79, 46, 72, 60]},
+    index=['Andre', 'Barry', 'Chris', 'Dan', 'Emilio', 
+           'Fred', 'Greta', 'Humbert', 'Ivan', 'James']
+)
+
+def standardize(df):
+    '''
+    Fill in this function to standardize each column of the given
+    DataFrame. To standardize a variable, convert each value to the
+    number of standard deviations it is above or below the mean.
+    
+    This time, try to use vectorized operations instead of apply().
+    You should get the same results as you did before.
+    '''
+    """
+    mean = pd.Series([df.iloc[:,0].mean(), df.iloc[:,1].mean()], index=list(df.columns.values))
+    sd = pd.Series([df.iloc[:,0].std(ddof = 0), df.iloc[:,1].std(ddof = 0)], index=list(df.columns.values))
+    """
+    mean = df.mean()
+    print mean
+    sd = df.std(ddof = 0)
+    print sd
+    return (df - mean) / sd
+print standardize(grades_df)
+print
+
+def standardize_rows(df):
+    '''
+    Optional: Fill in this function to standardize each row of the given
+    DataFrame. Again, try not to use apply().
+    
+    This one is more challenging than standardizing each column!
+    '''
+    """
+    mean = pd.Series([df.iloc[0].mean(), df.iloc[1].mean(), df.iloc[2].mean(), df.iloc[3].mean(), df.iloc[4].mean(), df.iloc[5].mean(), df.iloc[6].mean(), df.iloc[7].mean(), df.iloc[8].mean(), df.iloc[9].mean()], index=['Andre', 'Barry', 'Chris', 'Dan', 'Emilio', 'Fred', 'Greta', 'Humbert', 'Ivan', 'James'])
+    sd = pd.Series([df.iloc[0].std(ddof = 0), df.iloc[1].std(ddof = 0), df.iloc[2].std(ddof = 0), df.iloc[3].std(ddof = 0), df.iloc[4].std(ddof = 0), df.iloc[5].std(ddof = 0), df.iloc[6].std(ddof = 0), df.iloc[7].std(ddof = 0), df.iloc[8].std(ddof = 0), df.iloc[9].std(ddof = 0)], index=['Andre', 'Barry', 'Chris', 'Dan', 'Emilio', 'Fred', 'Greta', 'Humbert', 'Ivan', 'James'])
+    return df.subtract(mean, axis='index').divide(sd, axis='index')
+    """
+    mean = df.mean(axis='columns')
+    sd = df.std(ddof=0, axis='columns')
+    print sd
+    return df.sub(mean, axis='index').divide(sd, axis='index')
+print grades_df
+print standardize_rows(grades_df)
