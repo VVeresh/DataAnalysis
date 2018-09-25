@@ -1,0 +1,27 @@
+import numpy as np
+import pandas as pd
+
+df = pd.DataFrame({
+    'a': [4, 5, 3, 1, 2],
+    'b': [20, 10, 40, 50, 30],
+    'c': [25, 20, 5, 15, 10]
+})
+
+def second_largest_in_column(column):
+    max_value = column.argmax()
+    sec_max = column.min()
+    for value in range(len(column)):
+        if value == max_value:
+            continue
+        if column[value] >= sec_max:
+            sec_max = column[value]
+    return sec_max    
+    
+def second_largest(df):
+    '''
+    Fill in this function to return the second-largest value of each 
+    column of the input DataFrame.
+    '''
+    return df.apply(second_largest_in_column)
+    
+print second_largest(df)
